@@ -1,4 +1,5 @@
-# LSTM-study
-Explore LSTM Neural Networks with PyTorch: A Comprehensive Study
+# Redes Neurais LSTM com PyTorch
+Descubra os mecanismos internos das redes LSTM e sua capacidade de modelar efetivamente dependências de longo prazo em dados sequenciais. Seja para aplicações em processamento de linguagem natural, análise de séries temporais ou modelagem preditiva.
 
-Uncover the inner workings of LSTM networks and their capability to effectively model long-term dependencies in sequential data. Whether you're interested in natural language processing, time series analysis, or predictive modeling.
+# LSTM - Long Short-Term Memory
+A LSTM é uma rede neural recorrente (RNN) projetada para resolver o problema do gradiente que se dissipa.
