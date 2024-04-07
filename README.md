@@ -8,13 +8,13 @@ O conceito de RNN surgiu na década de 1980, com a ideia de conectar neurônios 
 
 ![Ilustração de uma RNN](imgs/Recurrent_neural_network_unfold.svg.png)
 
+# LSTM - Long Short-Term Memory
 Para abordar essas limitações, as LSTMs (Long Short-Term Memory) foram propostas no final da década de 1990 por Hochreiter e Schmidhuber. As LSTMs são uma extensão das RNNs que introduzem unidades de memória especiais chamadas "células de memória". Essas células de memória têm a capacidade de armazenar informações por longos períodos de tempo e decidir quando atualizar ou esquecer essas informações, permitindo que as LSTMs capturem dependências de longo prazo de forma mais eficaz.
 
 ![Ilustração de uma LSTM](imgs/LSTM_Cell.svg.png)
 
 Com a introdução das LSTMs, as RNNs foram capazes de superar muitas das limitações que as impediam de lidar com sequências complexas e de longo prazo. As LSTMs se tornaram uma arquitetura fundamental em áreas como processamento de linguagem natural, reconhecimento de fala, previsão de séries temporais e muito mais, demonstrando sua eficácia em lidar com uma variedade de problemas de modelagem sequencial.
 
-# LSTM - Long Short-Term Memory
 ## Topologia da Rede
 **Camada de Entrada**: Esta é a primeira camada da rede, responsável por receber e processar os dados de entrada inicialmente.
 
