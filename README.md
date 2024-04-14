@@ -4,7 +4,7 @@ Descubra os mecanismos internos das redes LSTM e sua capacidade de modelar efeti
 # Breve visão sobre Redes Neurais Recorrentes (RNN)
 As Redes Neurais Recorrentes (RNNs) são uma classe de modelos de rede neural artificial que têm a capacidade de lidar com dados sequenciais e temporais. Elas foram desenvolvidas para superar as limitações das redes neurais tradicionais, que tratam cada entrada de forma independente, sem levar em consideração a ordem ou a dependência temporal dos dados.
 
-O conceito de RNN surgiu na década de 1980, com a ideia de conectar neurônios em uma rede em loops, permitindo que as informações fossem persistentes ao longo do tempo. No entanto, as RNNs tradicionais enfrentavam desafios de treinamento devido ao problema do gradiente que desaparece ou explode, especialmente em sequências longas. Isso resultava em dificuldades para capturar dependências de longo prazo e limitava seu desempenho em tarefas complexas.
+O conceito de RNN surgiu na década de 1980, com a ideia de conectar neurônios em uma rede em loops, permitindo que as informações fossem persistentes ao longo do tempo. No entanto, as RNNs tradicionais enfrentavam desafios de treinamento devido ao problema do ***gradiente que desaparece ou explode***, especialmente em sequências longas. Isso ***resultava em dificuldades para capturar dependências mais longas*** e limitava seu desempenho em tarefas complexas.
 
 ![Ilustração de uma RNN](imgs/Recurrent_neural_network_unfold.svg.png)
 
@@ -23,6 +23,44 @@ Com a introdução das LSTMs, as RNNs foram capazes de superar muitas das limita
 **Camada de Saída**: Esta é a última camada da rede, onde as informações processadas são transmitidas como resultado. Aqui, a rede LSTM utiliza o conhecimento adquirido para tomar decisões ou gerar previsões.
 
 # 
+
+# LSTM utilizando PyTorch
+> CLASS torch.nn.LSTM(self, input_size, hidden_size, num_layers=1, bias=True, batch_first=False, dropout=0.0, bidirectional=False, proj_size=0, device=None, dtype=None)
+
+Para cada elemento de entrada, cada camada calcula a seguinte função:
+$$
+i_t = σ(W_{ii}x_t + b_{ii} + W_{hi}h_{t-1} + b_{hi})  
+$$
+$$
+f_t = σ(W_{if}x_t + b_{if} + W_{hf}h_{t-1} + b_{hf})  
+$$
+$$
+g_t = tanh(W_{ig}x_t + b_{ig} + W_{hg}h_{t-1} + b_{hg})  
+$$
+$$
+o_t = σ(W_{io}x_t + b_{io} + W_{ho}h_{t-1} + b_{ho})
+$$
+$$
+c_t = f_t \odot c_{t-1} + i_t \odot g_t
+$$
+$$
+h_t = o_t \odot tanh(c_t)
+$$
+
+
+Onde:  
+$h_t$ é o estado oculto no instante $t$,  
+$c_t$ é o *cell state* no instante $t$,  
+$x_t$ é a entrada no instante $t$,  
+$h_{t-1}$ é o estado oculto da camada no instante $t-1$ ou o estado oculto inicial no instante $o$,  
+$i_t$ é a entrada,  
+$f_t$ é o gate de esquecimento,  
+$g_t$ é o gate da célula,  
+$o_t$ é o gate de saída,  
+$σ$ é a função *sigmoid*,  
+$\odot$ é a multiplicação de [Hadamard](#multiplicação-de-hadamard)     
+
+Em uma LSTM multilayer, a entrada $x^{(l)}_t$ da l-ésima camada ($l \geq 2$) é o estado oculto $h^{(l-1)}_t$ da camada anterior multiplicado por um *dropout* $δ^{(l-1)}_t$ onde cada $δ^{(l-1)}_t$ é uma variável aleatória de Bernoulli com probabilidade 0 de *dropout*.
 
 # Exemplo de implementação
 Objetivo: Prever o valor de fechamento de uma ação.
@@ -137,3 +175,41 @@ Sak, H.; Senior, A.; Beaufays, F. Long Short-Term Memory Based Recurrent Neural 
 PYTORCH. torch.nn.LSTM. Disponível em:  
 https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html.  
 Acesso em: 06/04/2024.
+
+## Multiplicação de Hadamard
+Em matemática, o produto Hadamard é uma operação binária que recebe duas matrizes das mesmas dimensões e retorna uma matriz dos elementos correspondentes multiplicados. Esta operação pode ser pensada como uma “multiplicação ingênua de matrizes” e é diferente do produto de matrizes.
+
+Por Exemplo:  
+$A= \left[\begin{array}{ccc}
+1 & 2 \\
+3 & 4
+\end{array}\right]
+$
+
+$
+B= \left[\begin{array}{ccc}
+5 & 6 \\
+7 & 8
+\end{array}\right]
+$
+
+$
+A + B = 
+\left[\begin{array}{ccc}
+1+5 & 2+6 \\
+3+7 & 4+8
+\end{array}\right] = 
+\left[\begin{array}{ccc}
+6 & 8 \\
+10 & 12
+\end{array}\right]
+$
+
+## Camada de Dropout
+Dropout é uma técnica de regularização usada em redes neurais durante o treinamento para reduzir o overfitting.
+
+Durante o treinamento, uma fração dos neurônios da camada é aleatoriamente desativada (ou "descartada") com uma probabilidade pré-definida. Isso força a rede a aprender representações mais robustas, pois impede que os neurônios dependam demais uns dos outros.
+
+Durante o teste ou inferência, todos os neurônios são usados, mas com pesos escalados para compensar a desativação durante o treinamento.
+
+![Sem Dropout](imgs/NN_Dropout.png)

@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 
 *.pdf
+imgs/NN_SD.svg
