@@ -40,9 +40,7 @@ Com a introdução das LSTMs, as RNNs foram capazes de superar muitas das limita
 > CLASS torch.nn.LSTM(self, input_size, hidden_size, num_layers=1, bias=True, batch_first=False, dropout=0.0, bidirectional=False, proj_size=0, device=None, dtype=None)
 
 Para cada elemento de entrada, cada camada calcula a seguinte função:  
-$$
-i_t = σ(W_{ii}x_t + b_{ii} + W_{hi}h_{t-1} + b_{hi})  
-$$
+$$ i_t = σ(W_{ii}x_t + b_{ii} + W_{hi}h_{t-1} + b_{hi}) $$
 
 $$
 f_t = σ(W_{if}x_t + b_{if} + W_{hf}h_{t-1} + b_{hf})  
@@ -197,12 +195,7 @@ Acesso em: 06/04/2024.
 Em matemática, o produto Hadamard é uma operação binária que recebe duas matrizes das mesmas dimensões e retorna uma matriz dos elementos correspondentes multiplicados. Esta operação pode ser pensada como uma “multiplicação ingênua de matrizes” e é diferente do produto de matrizes.
 
 Por Exemplo:  
-$$
-A= \left[\begin{array}{ccc}
-1 & 2 \\
-3 & 4
-\end{array}\right]
-$$
+$$ A= \left[\begin{array}{ccc} 1 & 2 \\ 3 & 4 \end{array}\right]$$
 
 $$
 B= \left[\begin{array}{ccc}
