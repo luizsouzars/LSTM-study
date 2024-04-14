@@ -1,4 +1,14 @@
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
 
 # Redes Neurais LSTM com PyTorch
 Descubra os mecanismos internos das redes LSTM e sua capacidade de modelar efetivamente dependências de longo prazo em dados sequenciais. Seja para aplicações em processamento de linguagem natural, análise de séries temporais ou modelagem preditiva.
