@@ -22,12 +22,16 @@ As Redes Neurais Recorrentes (RNNs) são uma classe de modelos de rede neural ar
 
 O conceito de RNN surgiu na década de 1980, com a ideia de conectar neurônios em uma rede em loops, permitindo que as informações fossem persistentes ao longo do tempo. No entanto, as RNNs tradicionais enfrentavam desafios de treinamento devido ao problema do ***gradiente que desaparece ou explode***, especialmente em sequências longas. Isso ***resultava em dificuldades para capturar dependências mais longas*** e limitava seu desempenho em tarefas complexas.
 
-![Ilustração de uma RNN](imgs/Recurrent_neural_network_unfold.svg.png)
+<p align="center">
+<img src="imgs/Recurrent_neural_network_unfold.svg.png" alt="Dropout" style="width:600px;height:auto;">
+</p>
 
 # LSTM - Long Short-Term Memory
 Para abordar essas limitações, as LSTMs (Long Short-Term Memory) foram propostas no final da década de 1990 por Hochreiter e Schmidhuber. As LSTMs são uma extensão das RNNs que introduzem unidades de memória especiais chamadas "células de memória". Essas células de memória têm a capacidade de armazenar informações por longos períodos de tempo e decidir quando atualizar ou esquecer essas informações, permitindo que as LSTMs capturem dependências de longo prazo de forma mais eficaz.
 
-![Ilustração de uma LSTM](imgs/LSTM_Cell.svg.png)
+<p align="center">
+<img src="imgs/LSTM_Cell.svg.png" alt="Dropout" style="width:600px;height:auto;">
+</p>
 
 Com a introdução das LSTMs, as RNNs foram capazes de superar muitas das limitações que as impediam de lidar com sequências complexas e de longo prazo. As LSTMs se tornaram uma arquitetura fundamental em áreas como processamento de linguagem natural, reconhecimento de fala, previsão de séries temporais e muito mais, demonstrando sua eficácia em lidar com uma variedade de problemas de modelagem sequencial.
 
@@ -181,7 +185,10 @@ plt.legend()
 plt.show()
 ````
 
-![Resultado da Previsão](imgs/image.png)
+<p align="center">
+<img src="imgs/image.png" alt="Dropout" style="width:450px;height:auto;">
+</p>
+
 
 # Referências
 Hochreiter, S., & Schmidhuber, J. (1997). Long Short-Term Memory. Neural Computation, 9(8), 1735–1780. doi:10.1162/neco.1997.9.8.1735 
@@ -218,12 +225,12 @@ $$
 $$
 A + B = 
 \left[\begin{array}{ccc}
-1+5 & 2+6 \\
-3+7 & 4+8
+1\times5 & 2\times6 \\
+3\times7 & 4\times8
 \end{array}\right] = 
 \left[\begin{array}{ccc}
-6 & 8 \\
-10 & 12
+5 & 12 \\
+21 & 32
 \end{array}\right]
 $$
 
@@ -235,4 +242,6 @@ Durante o treinamento, uma fração dos neurônios da camada é aleatoriamente d
 
 Durante o teste ou inferência, todos os neurônios são usados, mas com pesos escalados para compensar a desativação durante o treinamento.
 
-![Sem Dropout](imgs/NN_Dropout.png)
+<p align="center">
+<img src="imgs/NN_Dropout.png" alt="Dropout" style="width:450px;height:auto;">
+</p>
