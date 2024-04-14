@@ -43,18 +43,23 @@ Para cada elemento de entrada, cada camada calcula a seguinte função:
 $$
 i_t = σ(W_{ii}x_t + b_{ii} + W_{hi}h_{t-1} + b_{hi})  
 $$
+
 $$
 f_t = σ(W_{if}x_t + b_{if} + W_{hf}h_{t-1} + b_{hf})  
 $$
+
 $$
 g_t = tanh(W_{ig}x_t + b_{ig} + W_{hg}h_{t-1} + b_{hg})  
 $$
+
 $$
 o_t = σ(W_{io}x_t + b_{io} + W_{ho}h_{t-1} + b_{ho})
 $$
+
 $$
 c_t = f_t \odot c_{t-1} + i_t \odot g_t
 $$
+
 $$
 h_t = o_t \odot tanh(c_t)
 $$
@@ -72,7 +77,7 @@ $o_t$ é o gate de saída,
 $σ$ é a função *sigmoid*,  
 $\odot$ é a multiplicação de [Hadamard](#multiplicação-de-hadamard)     
 
-Em uma LSTM multilayer, a entrada $x^{(l)}_t$ da l-ésima camada ($l \geq 2$) é o estado oculto $h^{(l-1)}_t$ da camada anterior multiplicado por um *dropout* $δ^{(l-1)}_t$ onde cada $δ^{(l-1)}_t$ é uma variável aleatória de Bernoulli com probabilidade 0 de *dropout*.
+Em uma LSTM multilayer, a entrada $x^{(l)}_t$ da l-ésima camada ($l \geq 2$) é o estado oculto $h^{(l-1)}_t$ da camada anterior multiplicado por um *dropout* $δ^{(l-1)}_t$ onde cada $δ^{(l-1)}_t$ é uma variável aleatória de Bernoulli com probabilidade 0 de [*dropout*](#camada-de-dropout).
 
 # Exemplo de implementação
 Objetivo: Prever o valor de fechamento de uma ação.
@@ -192,20 +197,21 @@ Acesso em: 06/04/2024.
 Em matemática, o produto Hadamard é uma operação binária que recebe duas matrizes das mesmas dimensões e retorna uma matriz dos elementos correspondentes multiplicados. Esta operação pode ser pensada como uma “multiplicação ingênua de matrizes” e é diferente do produto de matrizes.
 
 Por Exemplo:  
-$A= \left[\begin{array}{ccc}
+$$
+A= \left[\begin{array}{ccc}
 1 & 2 \\
 3 & 4
 \end{array}\right]
-$
+$$
 
-$
+$$
 B= \left[\begin{array}{ccc}
 5 & 6 \\
 7 & 8
 \end{array}\right]
-$
+$$
 
-$
+$$
 A + B = 
 \left[\begin{array}{ccc}
 1+5 & 2+6 \\
@@ -215,7 +221,8 @@ A + B =
 6 & 8 \\
 10 & 12
 \end{array}\right]
-$
+$$
+
 
 ## Camada de Dropout
 Dropout é uma técnica de regularização usada em redes neurais durante o treinamento para reduzir o overfitting.
