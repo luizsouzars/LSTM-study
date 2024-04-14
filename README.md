@@ -23,15 +23,14 @@ As Redes Neurais Recorrentes (RNNs) são uma classe de modelos de rede neural ar
 O conceito de RNN surgiu na década de 1980, com a ideia de conectar neurônios em uma rede em loops, permitindo que as informações fossem persistentes ao longo do tempo. No entanto, as RNNs tradicionais enfrentavam desafios de treinamento devido ao problema do ***gradiente que desaparece ou explode***, especialmente em sequências longas. Isso ***resultava em dificuldades para capturar dependências mais longas*** e limitava seu desempenho em tarefas complexas.
 
 <p align="center">
-<img src="imgs/Recurrent_neural_network_unfold.svg.png" alt="Dropout" style="width:600px;height:auto;">
+<img src="imgs/Recurrent_neural_network_unfold.svg.png" alt="rnn" style="width:600px;height:auto;">
+</p>
+<p align="center">
+<em>Representação de uma RNN desdobrada no tempo</em>
 </p>
 
 # LSTM - Long Short-Term Memory
 Para abordar essas limitações, as LSTMs (Long Short-Term Memory) foram propostas no final da década de 1990 por Hochreiter e Schmidhuber. As LSTMs são uma extensão das RNNs que introduzem unidades de memória especiais chamadas "células de memória". Essas células de memória têm a capacidade de armazenar informações por longos períodos de tempo e decidir quando atualizar ou esquecer essas informações, permitindo que as LSTMs capturem dependências de longo prazo de forma mais eficaz.
-
-<p align="center">
-<img src="imgs/LSTM_Cell.svg.png" alt="Dropout" style="width:600px;height:auto;">
-</p>
 
 Com a introdução das LSTMs, as RNNs foram capazes de superar muitas das limitações que as impediam de lidar com sequências complexas e de longo prazo. As LSTMs se tornaram uma arquitetura fundamental em áreas como processamento de linguagem natural, reconhecimento de fala, previsão de séries temporais e muito mais, demonstrando sua eficácia em lidar com uma variedade de problemas de modelagem sequencial.
 
@@ -40,9 +39,14 @@ Com a introdução das LSTMs, as RNNs foram capazes de superar muitas das limita
 
 **Camada Oculta**: A camada oculta da LSTM é composta por células de memória e unidades de portas. As células de memória têm a capacidade de armazenar informações importantes por longos períodos, permitindo que a rede aprenda padrões complexos ao longo do tempo. As unidades de portas, por sua vez, controlam o acesso e a manipulação dessas informações armazenadas.
 
-**Camada de Saída**: Esta é a última camada da rede, onde as informações processadas são transmitidas como resultado. Aqui, a rede LSTM utiliza o conhecimento adquirido para tomar decisões ou gerar previsões.
+<p align="center">
+<img src="imgs/LSTM_Cell.svg.png" alt="memorycell" style="width:600px;height:auto;">
+</p>
+<p align="center">
+<em>Representação de uma célula de memória</em>
+</p>
 
-# 
+**Camada de Saída**: Esta é a última camada da rede, onde as informações processadas são transmitidas como resultado. Aqui, a rede LSTM utiliza o conhecimento adquirido para tomar decisões ou gerar previsões.
 
 # LSTM utilizando PyTorch
 > CLASS torch.nn.LSTM(self, input_size, hidden_size, num_layers=1, bias=True, batch_first=False, dropout=0.0, bidirectional=False, proj_size=0, device=None, dtype=None)
@@ -84,7 +88,14 @@ $o_t$ é o gate de saída,
 $σ$ é a função *sigmoid*,  
 $\odot$ é a multiplicação de [Hadamard](#multiplicação-de-hadamard)     
 
-Em uma LSTM multilayer, a entrada $x^{(l)}_t$ da l-ésima camada ($l \geq 2$) é o estado oculto $h^{(l-1)}_t$ da camada anterior multiplicado por um *dropout* $δ^{(l-1)}_t$ onde cada $δ^{(l-1)}_t$ é uma variável aleatória de Bernoulli com probabilidade 0 de [*dropout*](#camada-de-dropout).
+Em uma LSTM multilayer, a entrada $x^{(l)}_t$ da $l$-ésima camada ($l \geq 2$) é o estado oculto $h^{(l-1)}_t$ da camada anterior multiplicado por um *dropout* $δ^{(l-1)}_t$ onde cada $δ^{(l-1)}_t$ é uma variável aleatória de Bernoulli com probabilidade 0 de [*dropout*](#camada-de-dropout).
+
+### Principais Parâmetros
+- **input_size** - Número de features esperadas de uma entrada x
+- **hidden_size** - Quantidade de features do estado oculto h
+- **num_layers** - Quantidade de camadas recorrentes. Por exemplo: `num_layers = 2` significa que duas LSTM serão enfileiradas, de forma que a saída da primeira LSTM será entrada da próxima.
+- **bias** - Booleano que indica se serão ou não utilizados os pesos de viés $b_{ih}$ e $b_{hh}$
+- **dropout** - Se diferente de 0, adiciona uma camada de dropout nas saídas de cada LSTM, com exceção da última camada, com probabilidade igual ao valor de `dropout`
 
 # Exemplo de implementação
 Objetivo: Prever o valor de fechamento de uma ação.
@@ -183,12 +194,14 @@ plt.xlabel('Time')
 plt.ylabel('Stock Price')
 plt.legend()
 plt.show()
-````
+```
 
 <p align="center">
-<img src="imgs/image.png" alt="Dropout" style="width:450px;height:auto;">
+<img src="imgs/image.png" alt="stockprice" style="width:800px;height:auto;">
 </p>
-
+<p align="center">
+<em>Predição de valores de uma ação utilizando uma rede LSTM</em>
+</p>
 
 # Referências
 Hochreiter, S., & Schmidhuber, J. (1997). Long Short-Term Memory. Neural Computation, 9(8), 1735–1780. doi:10.1162/neco.1997.9.8.1735 
@@ -244,4 +257,7 @@ Durante o teste ou inferência, todos os neurônios são usados, mas com pesos e
 
 <p align="center">
 <img src="imgs/NN_Dropout.png" alt="Dropout" style="width:450px;height:auto;">
+</p>
+<p align="center">
+<em>Exemplo de uma rede com camada de Dropout</em>
 </p>
