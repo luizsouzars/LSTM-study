@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 # Redes Neurais LSTM com PyTorch
 Descubra os mecanismos internos das redes LSTM e sua capacidade de modelar efetivamente dependências de longo prazo em dados sequenciais. Seja para aplicações em processamento de linguagem natural, análise de séries temporais ou modelagem preditiva.
 
@@ -27,7 +29,7 @@ Com a introdução das LSTMs, as RNNs foram capazes de superar muitas das limita
 # LSTM utilizando PyTorch
 > CLASS torch.nn.LSTM(self, input_size, hidden_size, num_layers=1, bias=True, batch_first=False, dropout=0.0, bidirectional=False, proj_size=0, device=None, dtype=None)
 
-Para cada elemento de entrada, cada camada calcula a seguinte função:
+Para cada elemento de entrada, cada camada calcula a seguinte função:  
 $$
 i_t = σ(W_{ii}x_t + b_{ii} + W_{hi}h_{t-1} + b_{hi})  
 $$
