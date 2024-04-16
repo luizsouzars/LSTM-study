@@ -102,12 +102,13 @@ Todos os valores de pesos e viéses são inilizados com uma distribuição unifo
 $$
 \mathcal{U} = (-\sqrt{k},\sqrt{k})
 $$
+
 $$
 k = \frac{1}{hidden\_state}
 $$
 
 # Exemplo de implementação
-Objetivo: Prever o valor de fechamento de uma ação.
+**Objetivo**: Prever o valor de fechamento de uma ação.
 
 Primeiramente vamos baixar as bibliotecas necessárias
 ```python
@@ -151,7 +152,7 @@ train_data = sequences[:split]
 test_data = sequences[split:]
 ```
 
-Instanciando o modelo.
+### Instanciando o modelo.
 
 Utilizaremos uma rede com 1 entrada, 32 células LSTM na camada oculta, e 1 camada de saída, responsável por nos retornar o valor da ação.
 
