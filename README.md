@@ -97,9 +97,19 @@ Em uma LSTM multilayer, a entrada $x^{(l)}_t$ da $l$-ésima camada ($l \geq 2$) 
 - **bias** - Booleano que indica se serão ou não utilizados os pesos de viés $b_{ih}$ e $b_{hh}$
 - **dropout** - Se diferente de 0, adiciona uma camada de dropout nas saídas de cada LSTM, com exceção da última camada, com probabilidade igual ao valor de `dropout`
 
+### Inicialização de parâmetros e viéses
+Todos os valores de pesos e viéses são inilizados com uma distribuição uniforme.
+$$
+\mathcal{U} = (-\sqrt{k},\sqrt{k})
+$$
+$$
+k = \frac{1}{hidden\_state}
+$$
+
 # Exemplo de implementação
 Objetivo: Prever o valor de fechamento de uma ação.
 
+Primeiramente vamos baixar as bibliotecas necessárias
 ```python
 import torch
 import torch.nn as nn
@@ -107,7 +117,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
+```
 
+Agora, vamos carregar os dados e fazer um pré-processamento.
+```python
 # Carregar os dados
 data = pd.read_csv('stock_price.csv')
 
@@ -136,12 +149,18 @@ split_ratio = 0.8
 split = int(split_ratio * len(sequences))
 train_data = sequences[:split]
 test_data = sequences[split:]
+```
 
+Instanciando o modelo.
+
+Utilizaremos uma rede com 1 entrada, 32 células LSTM na camada oculta, e 1 camada de saída, responsável por nos retornar o valor da ação.
+
+```python
 # Definir o modelo LSTM
 class LSTMModel(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
         super(LSTMModel, self).__init__()
-        self.lstm = nn.LSTM(input_size, hidden_size, batch_first=True)
+        self.lstm = nn.LSTM(input_size, hidden_size)
         self.fc = nn.Linear(hidden_size, output_size)
         
     def forward(self, x):
@@ -153,11 +172,19 @@ input_size = 1
 hidden_size = 32
 output_size = 1
 model = LSTMModel(input_size, hidden_size, output_size)
+```
 
+Como função de custo e otimizador, utilizaremos MSELoss e Adam respectivamente.
+
+```python
 # Definir a função de perda e otimizador
 criterion = nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+```
 
+Ciclo de treino.
+
+```python
 # Treinar o modelo
 num_epochs = 20
 for epoch in range(num_epochs):
@@ -172,7 +199,11 @@ for epoch in range(num_epochs):
         optimizer.step()
     
     print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item()}ß')
+```
 
+Avaliação do modelo treinado.
+
+```python
 # Avaliar o modelo
 model.eval()
 predictions = []
@@ -181,7 +212,11 @@ with torch.no_grad():
         seq = torch.FloatTensor(seq).unsqueeze(0)
         pred = model(seq).item()
         predictions.append(pred)
+```
 
+Plotar os resultados.
+
+```python
 # Desnormalizar as previsões
 predictions = scaler.inverse_transform(np.array(predictions).reshape(-1, 1))
 
@@ -259,5 +294,5 @@ Durante o teste ou inferência, todos os neurônios são usados, mas com pesos e
 <img src="imgs/NN_Dropout.png" alt="Dropout" style="width:450px;height:auto;">
 </p>
 <p align="center">
-<em>Exemplo de uma rede com camada de Dropout</em>
+<em>Comparação de uma rede com e sem dropout</em>
 </p>
