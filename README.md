@@ -99,6 +99,7 @@ Em uma LSTM multilayer, a entrada $x^{(l)}_t$ da $l$-ésima camada ($l \geq 2$) 
 
 ### Inicialização de parâmetros e viéses
 Todos os valores de pesos e viéses são inilizados com uma distribuição uniforme.
+
 $$
 \mathcal{U} = (-\sqrt{k},\sqrt{k})
 $$
